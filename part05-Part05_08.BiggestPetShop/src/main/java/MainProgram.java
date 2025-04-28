@@ -6,9 +6,8 @@ public class MainProgram {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        Pet hulda = new Pet("Hulda", "Golden retriever");
-        Person leo = new Person("Leo", hulda);
-
-        System.out.println(leo);
+        Pet flounder = new Pet("Flounder", "fish");
+        Person ariel = new Person("Ariel", flounder);
+        System.out.println(ariel.toString());
     }
 }
