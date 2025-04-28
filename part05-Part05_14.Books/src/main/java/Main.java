@@ -18,8 +18,20 @@ public class Main {
             System.out.println("Publication year:");
             int publicationYear = Integer.valueOf(scanner.nextLine());
             Book book = new Book(name, publicationYear);
-            books.add(book);
+            boolean alreadyExist = false;
 
+            if(books.size()>0){
+                for(Book bookElement : books){
+                    if(bookElement.equals(book)){
+                        System.out.println("Book already in the list!");
+                        alreadyExist = true;
+                    }
+                }
+            }
+
+            if(!alreadyExist){
+                books.add(book);
+            }
         }
         
         // NB! Don't alter the line below!
