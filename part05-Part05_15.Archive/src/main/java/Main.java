@@ -31,7 +31,10 @@ public class Main {
 
         }
 
+
+
         System.out.println("==Items==");
+        System.out.println("==test==");
 
         for (Item entry : items) {
             System.out.println(entry.getId() + ": " + entry.getName());
