@@ -1,72 +1,42 @@
 
-public class Money {
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    private final int euros;
-    private final int cents;
+public class GuestListFromAFile {
 
-    public Money(int euros, int cents) {
-
-        if (cents > 99) {
-            euros = euros + cents / 100;
-            cents = cents % 100;
+    // main program
+    public static void main(String[] args) throws IOException {
+        // Creating new scanner and array list
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<>();
+        // Getting the name of the file from the user
+        System.out.println("Name of the file:");
+        String file = scanner.nextLine();
+        // we create a scanner for reading the file
+        try (Scanner filescanner = new Scanner(Paths.get(file))){
+            // Reading the contents in the file until empty line
+            while(filescanner.hasNextLine()){
+                // Adding the lines to the array list
+                list.add(filescanner.nextLine());
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
-        this.euros = euros;
-        this.cents = cents;
-    }
-
-    public int euros() {
-        return this.euros;
-    }
-
-    public int cents() {
-        return this.cents;
-    }
-
-    public String toString() {
-        String zero = "";
-        if (this.cents < 10) {
-            zero = "0";
-        }
-
-        return this.euros + "." + zero + this.cents + "e";
-    }
-
-    public Money plus(Money addition) {
-        Money newMoney = new Money(this.euros+addition.euros, this.cents+addition.cents); // create a new Money object that has the correct worth
-        // return the new Money object
-        return newMoney;
-    }
-
-    public boolean lessThan(Money compared) {
-        if(this.euros<compared.euros){
-            return true;
-        } else if(this.euros == compared.euros){
-            if(this.cents<compared.cents){
-                return true;
+        System.out.println("Enter names, an empty line quits.");
+        while (true) {
+            String name = scanner.nextLine();
+            if (name.isEmpty()) {
+                break;
+            }
+            if (list.contains(name)) {
+                System.out.println("The name is on the list.");
+            } else {
+                System.out.println("The name is not on the list.");
             }
         }
-        return false;
+        System.out.println("Thank you!");
     }
-
-    public Money minus(Money decreaser){
-        
-        int subtractEuros = this.euros - decreaser.euros;
-        int subtractCents = this.cents - decreaser.cents;
-        
-        if (subtractEuros >= 0){
-            if (subtractCents < 0){
-                subtractEuros = subtractEuros - 1;
-                subtractCents = subtractCents + 100;
-            }
-        } else {
-            subtractEuros = 0;
-            subtractCents = 0;
-        }
-        
-        Money newMoney = new Money(subtractEuros, subtractCents);
-        
-        return newMoney;
-    }
-
 }
+       
